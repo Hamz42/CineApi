@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Dto\Telefonos\**" />
+    <EmbeddedResource Remove="Dto\Telefonos\**" />
+    <None Remove="Dto\Telefonos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dto\Agentes\Director\" />
+    <Folder Include="Dto\Agentes\Distribuidor\" />
+    <Folder Include="Dto\Agentes\Productor\" />
+  </ItemGroup>
+
+</Project>

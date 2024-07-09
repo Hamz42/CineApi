@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interfaces\Repository\IEtniaRepository.cs" />
+    <Compile Remove="Interfaces\Repository\IGeneroRepository.cs" />
+    <Compile Remove="Interfaces\Repository\IPerfilRepository .cs" />
+    <Compile Remove="Interfaces\Repository\IProyectoRepository.cs" />
+    <Compile Remove="Interfaces\Repository\IRegionRepository.cs" />
+    <Compile Remove="Interfaces\Repository\ITipoDocumentoRepository.cs" />
+    <Compile Remove="Interfaces\Repository\ITipoEmpresaRepository.cs" />
+    <Compile Remove="Interfaces\Repository\ITipoProduccionRepository.cs" />
+    <Compile Remove="Interfaces\Repository\ITipoProductorRepository.cs" />
+    <Compile Remove="Interfaces\Services\IEtniaServices.cs" />
+    <Compile Remove="Interfaces\Services\IGeneroServices.cs" />
+    <Compile Remove="Interfaces\Services\IProyectoServices.cs" />
+    <Compile Remove="Interfaces\Services\IRegionServices.cs" />
+    <Compile Remove="Interfaces\Services\ITipoDocumentoServices.cs" />
+    <Compile Remove="Interfaces\Services\ITipoEmpresaServices.cs" />
+    <Compile Remove="Interfaces\Services\ITipoProduccionServices.cs" />
+    <Compile Remove="Interfaces\Services\ITipoProductorServices.cs" />
+    <Compile Remove="Persistence\Repository\GeneroRepository.cs" />
+    <Compile Remove="Persistence\Repository\PerfilRepository.cs" />
+    <Compile Remove="Persistence\Repository\ProyectoRepository.cs" />
+    <Compile Remove="Persistence\Repository\RegionRepository.cs" />
+    <Compile Remove="Persistence\Repository\TipoDocumentoRepository.cs" />
+    <Compile Remove="Persistence\Repository\TipoEmpresaRepository.cs" />
+    <Compile Remove="Persistence\Repository\TipoProduccionRepository.cs" />
+    <Compile Remove="Persistence\Repository\TipoProductorRepository.cs" />
+    <Compile Remove="Persistence\Services\GeneroServices.cs" />
+    <Compile Remove="Persistence\Services\ProyectoServices.cs" />
+    <Compile Remove="Persistence\Services\RegionServices.cs" />
+    <Compile Remove="Persistence\Services\TipoDocumentoServices.cs" />
+    <Compile Remove="Persistence\Services\TipoEmpresaServices.cs" />
+    <Compile Remove="Persistence\Services\TipoProduccionServices.cs" />
+    <Compile Remove="Persistence\Services\TipoProductorServices.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MC.Cine.DAL\MC.Cine.DAL.csproj" />
+    <ProjectReference Include="..\MC.Cine.DTO\MC.Cine.DTO.csproj" />
+    <ProjectReference Include="..\MC.Cine.Utils\MC.Cine.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

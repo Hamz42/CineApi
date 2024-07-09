@@ -1,2 +1,1 @@
-# CineAPI
-SIREC V2 API
+# MC.Cine
