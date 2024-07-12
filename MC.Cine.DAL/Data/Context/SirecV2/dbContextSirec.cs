@@ -62,6 +62,10 @@ public partial class dbContextSirec : DbContext
 
     public virtual DbSet<AplicacionesGrupoPoblacional> AplicacionesGrupoPoblacionals { get; set; }
 
+    public virtual DbSet<AplicacionesIdioma> AplicacionesIdiomas { get; set; }
+
+    public virtual DbSet<AplicacionesLenguaNativa> AplicacionesLenguaNativas { get; set; }
+
     public virtual DbSet<AplicacionesLogin> AplicacionesLogins { get; set; }
 
     public virtual DbSet<AplicacionesModulo> AplicacionesModulos { get; set; }
@@ -83,6 +87,8 @@ public partial class dbContextSirec : DbContext
     public virtual DbSet<AplicacionesPersona> AplicacionesPersonas { get; set; }
 
     public virtual DbSet<AplicacionesProfesion> AplicacionesProfesions { get; set; }
+
+    public virtual DbSet<AplicacionesSubGenero> AplicacionesSubGeneros { get; set; }
 
     public virtual DbSet<AplicacionesTipoDuracionProyeccion> AplicacionesTipoDuracionProyeccions { get; set; }
 
@@ -110,6 +116,8 @@ public partial class dbContextSirec : DbContext
 
     public virtual DbSet<TramitesClasificacionNivel> TramitesClasificacionNivels { get; set; }
 
+    public virtual DbSet<TramitesClasificacionTipoVisualizacion> TramitesClasificacionTipoVisualizacions { get; set; }
+
     public virtual DbSet<TramitesEstado> TramitesEstados { get; set; }
 
     public virtual DbSet<TramitesPersona> TramitesPersonas { get; set; }
@@ -119,10 +127,6 @@ public partial class dbContextSirec : DbContext
     public virtual DbSet<TramitesProyecto> TramitesProyectos { get; set; }
 
     public virtual DbSet<VwAplicacionesPermiso> VwAplicacionesPermisos { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=144.126.151.13,19889;Database=SIREC_V2;User Id=sa;Password=sElectra69l#2023;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -498,6 +502,25 @@ public partial class dbContextSirec : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<AplicacionesIdioma>(entity =>
+        {
+            entity.ToTable("AplicacionesIdioma");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Idioma)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<AplicacionesLenguaNativa>(entity =>
+        {
+            entity.ToTable("AplicacionesLenguaNativa");
+
+            entity.Property(e => e.LenguaNativa)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<AplicacionesLogin>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Aplicaci__3214EC073F5AA2E3");
@@ -722,6 +745,20 @@ public partial class dbContextSirec : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<AplicacionesSubGenero>(entity =>
+        {
+            entity.Property(e => e.FechaAlta).HasColumnType("datetime");
+            entity.Property(e => e.FechaBaja).HasColumnType("datetime");
+            entity.Property(e => e.SubGenero)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.GeneroObra).WithMany(p => p.AplicacionesSubGeneros)
+                .HasForeignKey(d => d.GeneroObraId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AplicacionesSubGeneros_AplicacionesGeneroObra");
+        });
+
         modelBuilder.Entity<AplicacionesTipoDuracionProyeccion>(entity =>
         {
             entity.ToTable("AplicacionesTipoDuracionProyeccion");
@@ -833,7 +870,7 @@ public partial class dbContextSirec : DbContext
 
         modelBuilder.Entity<TramitesClasificacion>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC075B715A7D");
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC0735EBC062");
 
             entity.ToTable("TramitesClasificacion");
 
@@ -841,9 +878,11 @@ public partial class dbContextSirec : DbContext
 
             entity.HasIndex(e => e.ProductoId, "fk_TramitesClasificacion_TramitesProducto1_idx");
 
+            entity.Property(e => e.FechaPago).HasColumnType("datetime");
             entity.Property(e => e.FichaTecnica).IsUnicode(false);
             entity.Property(e => e.MontoCancelado).HasColumnType("decimal(10, 0)");
             entity.Property(e => e.Sinopsis).IsUnicode(false);
+            entity.Property(e => e.TieneKdm).HasColumnName("TieneKDM");
             entity.Property(e => e.TituloEspañol)
                 .HasMaxLength(300)
                 .IsUnicode(false);
@@ -879,6 +918,10 @@ public partial class dbContextSirec : DbContext
                 .HasForeignKey(d => d.TipoPeliculaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TramitesClasificacion_AplicacionesTipoPelicula");
+
+            entity.HasOne(d => d.TipoVisualizacion).WithMany(p => p.TramitesClasificacions)
+                .HasForeignKey(d => d.TipoVisualizacionId)
+                .HasConstraintName("FK_TramitesClasificacion_TramitesClasificacionTipoVisualizacion");
 
             entity.HasOne(d => d.Tramite).WithMany(p => p.TramitesClasificacions)
                 .HasForeignKey(d => d.TramiteId)
@@ -931,6 +974,17 @@ public partial class dbContextSirec : DbContext
             entity.Property(e => e.FechaBaja).HasColumnType("datetime");
             entity.Property(e => e.Nivel)
                 .HasMaxLength(200)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<TramitesClasificacionTipoVisualizacion>(entity =>
+        {
+            entity.ToTable("TramitesClasificacionTipoVisualizacion");
+
+            entity.Property(e => e.FechaAlta).HasColumnType("datetime");
+            entity.Property(e => e.FechaBaja).HasColumnType("datetime");
+            entity.Property(e => e.TipoVisualizacion)
+                .HasMaxLength(50)
                 .IsUnicode(false);
         });
 

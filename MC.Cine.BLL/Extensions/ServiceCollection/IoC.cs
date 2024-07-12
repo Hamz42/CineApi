@@ -53,11 +53,9 @@ namespace MC.Cine.BLL.Extensions.ServiceCollection
             services.AddTransient<IMunicipioRepository, MunicipioRepository>();
             services.AddTransient<IAgentesRepository, AgentesRepository>();
             services.AddTransient<ITipoPeliculaRepository, TipoPeliculaRepository>();
-
             services.AddTransient<IEstadoRepository, EstadosRepository>();
             services.AddTransient<ISeguridadRepository, SeguridadRepository>();
-            services.AddTransient<ITipoProduccionCategoriaRepository, TipoProduccionCategoriaRepository>();
-
+            services.AddTransient<ITipoVisualizacionRepository, TipoVisualizacionRepository>();
 
             //Servicios
             services.AddTransient<IAutenticacionServices, AutenticacionServices>();
@@ -86,11 +84,9 @@ namespace MC.Cine.BLL.Extensions.ServiceCollection
             services.AddTransient<IMunicipioServices, MunicipioServices>();
             services.AddTransient<IAgentesServices, AgentesServices>();
             services.AddTransient<ITipoPeliculaServices, TipoPeliculaServices>();
-            
-
             services.AddTransient<IEstadosServices, EstadosServices>();
             services.AddTransient<ISeguridadServices, SeguridadServices>();
-            services.AddTransient<ITipoProduccionCategoriaServices, TipoProduccionCategoriaServices>();
+            services.AddTransient<ITipoVisualizacionRepository, TipoVisualizacionRepository>();
 
             //Servicio de Email
             services.Configure<EmailOptions>(configuration.GetSection("Email"));

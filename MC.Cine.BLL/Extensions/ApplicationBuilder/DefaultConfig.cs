@@ -9,8 +9,6 @@ namespace MC.Cine.BLL.Extensions.ApplicationBuilder
     {
         public static void InitconfigurationAPI(this IApplicationBuilder application, IWebHostEnvironment webHostEnvironment)
         {
-            application.UseCors("AllowMyOrigin");
-
             if (webHostEnvironment.IsDevelopment())
             {
                 application.UseDeveloperExceptionPage();
@@ -19,6 +17,7 @@ namespace MC.Cine.BLL.Extensions.ApplicationBuilder
             application.UseMiddleware<LogMiddleware>();
             application.UseHttpsRedirection();
             application.UseRouting();
+            application.UseCors("AllowMyOrigin");
             application.UseAuthentication();
             application.UseAuthorization();
             application.UseEndpoints(endpoints => { endpoints.MapControllers(); });

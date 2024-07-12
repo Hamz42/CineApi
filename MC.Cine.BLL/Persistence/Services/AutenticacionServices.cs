@@ -191,10 +191,10 @@ namespace MC.Cine.BLL.Persistence.Services
                 new Claim(ClaimTypes.Email, usuarioDto.CorreoElectronico!)
             };
 
-            foreach (var rol in usuarioDto.Roles)
-            {
-                claims.Append(new Claim(ClaimTypes.Role, rol));
-            }
+            //foreach (var rol in usuarioDto.Roles)
+            //{
+            //    claims.Append(new Claim(ClaimTypes.Role, rol));
+            //}
 
             var 
                 token = new JwtSecurityToken(_configuration["Jwt:Issuer"], 

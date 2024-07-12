@@ -21,6 +21,8 @@ public partial class TramitesClasificacion
 
     public int GeneroObraId { get; set; }
 
+    public int? SubGeneroObraId { get; set; }
+
     public int MonedaId { get; set; }
 
     public int TipoDuracionProyeccionId { get; set; }
@@ -41,6 +43,18 @@ public partial class TramitesClasificacion
 
     public int? DuracionSegundos { get; set; }
 
+    public long? NumeroConsignacion { get; set; }
+
+    public DateTime? FechaPago { get; set; }
+
+    public int? TipoVisualizacionId { get; set; }
+
+    public bool? TieneKdm { get; set; }
+
+    public bool? TieneRango { get; set; }
+
+    public int? NumeroVigenciaHoras { get; set; }
+
     public virtual AplicacionesFormatoRodaje FormatoRodaje { get; set; } = null!;
 
     public virtual AplicacionesGeneroObra GeneroObra { get; set; } = null!;
@@ -52,6 +66,8 @@ public partial class TramitesClasificacion
     public virtual AplicacionesTipoDuracionProyeccion TipoDuracionProyeccion { get; set; } = null!;
 
     public virtual AplicacionesTipoPelicula TipoPelicula { get; set; } = null!;
+
+    public virtual TramitesClasificacionTipoVisualizacion? TipoVisualizacion { get; set; }
 
     public virtual Tramite Tramite { get; set; } = null!;
 
